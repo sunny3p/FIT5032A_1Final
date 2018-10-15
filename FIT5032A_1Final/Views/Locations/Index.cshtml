@@ -1,0 +1,177 @@
+﻿@model IEnumerable<FIT5032A_1Final.Models.Location>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.min.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.css' type='text/css' />
+
+<div id="map" style="height:300px"></div>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        @*<th>
+                @Html.DisplayNameFor(model => model.Personal_Info.Fname)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Loc_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="coordinates">
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Personal_Info.Fname)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Loc_Name)
+            </td>
+            <td class="description">
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td class="address">
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts{
+    <script src='https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js'></script>
+    <script src="https://unpkg.com/@Html.Raw("@")mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+    
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic3VubnkzcCIsImEiOiJjamwxeXBucHkxa3JqM3FxcHEzY29mNzFsIn0.GeM-jgZ1ZwxCdmEtD5vJOA';
+        // eslint-disable-next-line no-undef
+        var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v10',
+            center: [145.031588, -37.889921],
+            zoom: 12
+        });
+
+        map.addControl(new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken
+        }));;
+
+
+        map.addControl(new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            trackUserLocation: true
+        }));
+        map.addControl(new mapboxgl.NavigationControl());
+
+        
+    </script>
+    
+    @foreach (var item in Model)
+    {
+        <script>
+            mapboxClient.geocoding.forwardGeocode({
+                query: '@item.Address',
+                autocomplete: false,
+                limit: 1
+            }).send().then(function (response) {
+                if (response && response.body && response.body.features && response.body.features.length) {
+                    var feature = response.body.features[0];
+                    //document.getElementById("demo").innerHTML = feature.center;
+                    new mapboxgl.Marker()
+                        .setLngLat(feature.center)
+                        .addTo(map);
+
+                    map.on('click', 'places', function (e) {
+                        new mapboxgl.Popup()
+                            .setLngLat(feature.center)
+                            .setHTML('@item.Description')
+                            .addTo(map);
+                    });
+
+                    // Change the cursor to a pointer when the mouse is over the places layer.
+                    map.on('mouseenter', 'places', function () {
+                        map.getCanvas().style.cursor = 'pointer';
+                    });
+
+                    // Change it back to a pointer when it leaves.
+                    map.on('mouseleave', 'places', function () {
+                        map.getCanvas().style.cursor = '';
+                    });
+
+                    new mapboxgl.Popup()
+                        .setLngLat(feature.center)
+                        .setHTML('@item.Description')
+                        .addTo(map);
+                }
+            });
+        </script>
+    }
+
+}
+
+@*<script src='https:\//unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js'></script>
+    <script src="https:\//unpkg.com/@Html.Raw("@")mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic3VubnkzcCIsImEiOiJjamwxeXBucHkxa3JqM3FxcHEzY29mNzFsIn0.GeM-jgZ1ZwxCdmEtD5vJOA';
+
+        // eslint-disable-next-line no-undef
+        var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v10',
+            center: [145.031588, -37.889921],
+            zoom: 12
+        });
+
+        map.addControl(new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            trackUserLocation: true
+        }));
+
+    </script>
+
+    @foreach (var place in Model)
+    {
+        <script>
+            mapboxClient.geocoding.forwardGeocode({
+                query: '@place.Address',
+                autocomplete: false,
+                limit: 1
+            }).send().then(function (response) {
+                if (response && response.body && response.body.features && response.body.features.length) {
+                    var feature = response.body.features[0];
+                    new mapboxgl.Marker()
+                        .setLngLat(feature.center)
+                        .addTo(map);
+                }
+            });
+        </script>
+    }*@

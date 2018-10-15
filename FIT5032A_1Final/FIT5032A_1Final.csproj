@@ -49,6 +49,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -195,18 +197,29 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Employee_InfoController.cs" />
+    <Compile Include="Controllers\Health_InfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\Personal_InfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Employee_Info.cs" />
+    <Compile Include="Models\FIT5032_A1Final.cs" />
+    <Compile Include="Models\Health_Info.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Location.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Personal_Info.cs" />
+    <Compile Include="Models\Reservation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\pexels-photo-935869.jpeg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -265,6 +278,27 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Personal_Info\Create.cshtml" />
+    <Content Include="Views\Personal_Info\Delete.cshtml" />
+    <Content Include="Views\Personal_Info\Details.cshtml" />
+    <Content Include="Views\Personal_Info\Edit.cshtml" />
+    <Content Include="Views\Personal_Info\Index.cshtml" />
+    <Content Include="Views\Employee_Info\Create.cshtml" />
+    <Content Include="Views\Employee_Info\Delete.cshtml" />
+    <Content Include="Views\Employee_Info\Details.cshtml" />
+    <Content Include="Views\Employee_Info\Edit.cshtml" />
+    <Content Include="Views\Employee_Info\Index.cshtml" />
+    <Content Include="Views\Health_Info\Create.cshtml" />
+    <Content Include="Views\Health_Info\Delete.cshtml" />
+    <Content Include="Views\Health_Info\Details.cshtml" />
+    <Content Include="Views\Health_Info\Edit.cshtml" />
+    <Content Include="Views\Health_Info\Index.cshtml" />
+    <Content Include="Views\Health_Info\EmpDetail.cshtml" />
+    <Content Include="Views\Locations\Create.cshtml" />
+    <Content Include="Views\Locations\Delete.cshtml" />
+    <Content Include="Views\Locations\Details.cshtml" />
+    <Content Include="Views\Locations\Edit.cshtml" />
+    <Content Include="Views\Locations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

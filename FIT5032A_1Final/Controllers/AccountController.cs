@@ -79,7 +79,17 @@ namespace FIT5032A_1Final.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    //if (User.IsInRole("Customer"))
+                    //{
+                        return RedirectToAction("Index","Health_Info");
+                    //}
+                    ////else
+                    //{
+                    //    return RedirectToAction(
+                    //        );
+                    //}
+                //case SignInStatus.Success:
+                //    return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -163,7 +173,7 @@ namespace FIT5032A_1Final.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Create", "Personal_Info");
                 }
                 AddErrors(result);
             }

@@ -1,0 +1,75 @@
+﻿@model FIT5032A_1Final.Models.Health_Info
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Health_Info</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Personal_Info.Fname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Personal_Info.Fname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alchol_Consumption)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alchol_Consumption)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Smoking)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Smoking)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Height)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Height)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Weight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mood_Level)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mood_Level)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

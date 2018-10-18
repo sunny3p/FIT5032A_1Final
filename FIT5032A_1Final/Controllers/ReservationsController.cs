@@ -53,6 +53,7 @@ namespace FIT5032A_1Final.Controllers
         public ActionResult Create([Bind(Include = "R_Id,R_DateTime,Reason,R_Status,EId")] Reservation reservation)
         {
             reservation.PId = User.Identity.GetUserId();
+            reservation.R_Status = "Pending";
             if (ModelState.IsValid)
             {
                 db.Reservations.Add(reservation);

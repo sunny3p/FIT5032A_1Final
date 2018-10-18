@@ -6,6 +6,7 @@
 }
 <h2>Calendar</h2>
 
+<p>@Html.ActionLink("Show Table", "EmpDetail","Health_Info")</p>
 <div id="calendar"></div>
 
 <link href="https://code.jquery.com/ui/1.12.1/themes/hot-sneaks/jquery-ui.css" rel="stylesheet" />
@@ -37,31 +38,46 @@
         </script>*@
 
     <script>
-        $(document).ready(function () {
-            $(function () {
+        $(document).ready(function() {
+            $(function() {
                 $('#calendar').fullCalendar({
-                    events: function (start, end, timezone, callback) {
+                    header: {
+                        left: "month,agendaWeek,agendaDay",
+                        center: "title",
+                       
+                    },
+                    events: function(start, end, timezone, callback) {
                         $.ajax({
-                            url: '/Health_Info/getReservations',
+                            url: '/Health_Info/getReservationDetails',
                             type: "GET",
                             datatype: "json",
-                            success: function (result) {
+                            success: function(result) {
                                 var events = [];
-                                $.each(result, function (i, data) {
-                                    events.push(
-                                        {
-                                            id: 1,
-                                            title: "Sunny",
-                                            start: '2018-10-15'
 
-                                        }
-                                    );
+                                $.each(result,
+                                    function(i, data) {
+                                        events.push(
+                                            {
+                                                id: data.R_Id,
+                                                title: data.Fname,
+                                                start: moment(data.R_DateTime).format("YYYY-MM-DD HH:mm"),
+                                                end: moment(data.R_DateTime).add(60, 'minutes')
+                                                    .format("YYYY-MM-DD HH:mm"),
+                                                allDay: false,
+                                                
 
-                                });
+                                            }
+                                        );
+
+                                    });
                                 callback(events);
                             }
                         });
                     },
+                    selectable: true,
+                    eventClick: function(calEvent, jsEvent, view) {
+                        window.location.href = '/Reservations/Edit?id=' + calEvent.id;
+                    }
                 });
             })
         })

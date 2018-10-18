@@ -7,20 +7,23 @@
 
 <h2>Index</h2>
 
+
+
+<p>
+    @Html.ActionLink("Update Profile", "Edit","Personal_Info",new {id = ViewBag.PId},null)|
+    @Html.ActionLink("Location", "Index", "Locations")|
+    @Html.ActionLink("Create Reservation", "Create", "Reservations")|
+
+</p>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-
-<p>
-    @Html.ActionLink("Update Profile", "Edit","Personal_Info",new {id = ViewBag.PId},null)
-</p>
-
 <table class="table">
     <thead>
         <tr>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Personal_Info.Fname)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Alchol_Consumption)
             </th>
@@ -48,11 +51,11 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Personal_Info.Fname)
-                </td>
+                </td>*@
                 <td>
-                    @Html.DisplayFor(modelItem => item.Alchol_Consumption)
+                    @Html.DisplayFor( modelItem => item.Alchol_Consumption)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Smoking)
@@ -67,7 +70,8 @@
                     @Html.DisplayFor(modelItem => item.Mood_Level)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Date)
+                    @*@Html.DisplayFor(modelItem => item.Date.ToShortDateString())*@
+                    @item.Date.ToShortDateString()
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
@@ -79,8 +83,6 @@
     </tbody>
 
 </table>
-<p>@Html.ActionLink("Location", "Index", "Locations")</p>
-<p>@Html.ActionLink("Create Reservation", "Create", "Reservations")</p>
 
 <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 @section Scripts{

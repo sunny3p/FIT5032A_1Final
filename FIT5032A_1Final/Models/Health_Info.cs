@@ -15,16 +15,17 @@ namespace FIT5032A_1Final.Models
 
         [Required]
         public string Smoking { get; set; }
-
+        [Range(100,200)]
         [Column(TypeName = "numeric")]
         public decimal Height { get; set; }
-
+        [Range(15, 200)]
         [Column(TypeName = "numeric")]
         public decimal Weight { get; set; }
 
         [Required]
         public string Mood_Level { get; set; }
 
+        //[DataType(DataType.Date)]
         [Column(TypeName = "date")]
         public DateTime Date { get; set; }
 

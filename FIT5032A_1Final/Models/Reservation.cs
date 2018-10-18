@@ -17,7 +17,7 @@ namespace FIT5032A_1Final.Models
         [Required]
         public string Reason { get; set; }
 
-        [StringLength(128)]
+        //[StringLength(128)]
         public string PId { get; set; }
 
         [StringLength(20)]

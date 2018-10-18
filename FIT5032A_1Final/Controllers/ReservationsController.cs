@@ -18,7 +18,9 @@ namespace FIT5032A_1Final.Controllers
         // GET: Reservations
         public ActionResult Index()
         {
-            var reservations = db.Reservations.Include(r => r.Employee_Info).Include(r => r.Personal_Info);
+            var id = User.Identity.GetUserId();
+            var reservations = db.Reservations.Where(r => r.PId == id);
+            //var reservations = db.Reservations.Include(r => r.Employee_Info).Include(r => r.Personal_Info);
             return View(reservations.ToList());
         }
 
@@ -30,6 +32,7 @@ namespace FIT5032A_1Final.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Reservation reservation = db.Reservations.Find(id);
+
             if (reservation == null)
             {
                 return HttpNotFound();
@@ -50,43 +53,42 @@ namespace FIT5032A_1Final.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "R_Id,R_DateTime,Reason,R_Status,EId")] Reservation reservation)
+        public ActionResult Create([Bind(Include = "R_Id,R_DateTime,Reason,EId")] Reservation reservation)
         {
+
+            ApplicationDbContext dbContext = new ApplicationDbContext();
             reservation.PId = User.Identity.GetUserId();
             reservation.R_Status = "Pending";
-            if (ModelState.IsValid)
-            {
-                db.Reservations.Add(reservation);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
-            ViewBag.EId = new SelectList(db.Employee_Info, "Id", "Fname", reservation.EId);
-            ViewBag.PId = new SelectList(db.Personal_Info, "Id", "Fname", reservation.PId);
-            return View(reservation);
+            db.Reservations.Add(reservation);
+            db.SaveChanges();
+            var emailId = dbContext.Users.Where(h => h.Id == reservation.PId).First().Email;
+            var id = db.Personal_Info.Where(h => h.Id == reservation.PId).First().Fname;
+            var eid = db.Employee_Info.Where(h => h.Id == reservation.EId).First().Fname;
+            var subject = "Regarding Appointment Details Booking " + reservation.R_Status +"ation";
+            var message = "Hi " + id + " \n This is regarding your appointment with " + eid +
+                          ". Your booking reservation id is " + reservation.R_Id +
+                          " Your current appointment date is" + reservation.R_DateTime + " and  your current status is " +
+                          reservation.R_Status + ".";
+            EmailController email = new EmailController();
+            email.Send(emailId, subject, message);
+
+            return RedirectToAction("Index");
+
+            //ViewBag.EId = new SelectList(db.Employee_Info, "Id", "Fname", reservation.EId);
+            //ViewBag.PId = new SelectList(db.Personal_Info, "Id", "Fname", reservation.PId);
+            //return View(reservation);
         }
 
 
-        // GET: Reservations/Edit/5
-        public ActionResult DEdit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Reservation reservation = db.Reservations.Find(id);
-            if (reservation == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.EId = new SelectList(db.Employee_Info, "Id", "Fname", reservation.EId);
-            ViewBag.PId = new SelectList(db.Personal_Info, "Id", "Fname", reservation.PId);
-            return View(reservation);
-        }
+    
 
         // GET: Reservations/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.Date = db.Reservations.Where(s => s.R_Id == id).FirstOrDefault().R_DateTime.ToShortDateString();
+            ViewBag.Time = db.Reservations.Where(s => s.R_Id == id).FirstOrDefault().R_DateTime.ToShortTimeString();
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -98,6 +100,7 @@ namespace FIT5032A_1Final.Controllers
             }
             ViewBag.EId = new SelectList(db.Employee_Info, "Id", "Fname", reservation.EId);
             ViewBag.PId = new SelectList(db.Personal_Info, "Id", "Fname", reservation.PId);
+            
             return View(reservation);
         }
 
@@ -108,14 +111,26 @@ namespace FIT5032A_1Final.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "R_Id,R_DateTime,Reason,PId,R_Status,EId")] Reservation reservation)
         {
+            ApplicationDbContext dbContext = new ApplicationDbContext();
             if (ModelState.IsValid)
             {
                 db.Entry(reservation).State = EntityState.Modified;
                 db.SaveChanges();
+                var emailId = dbContext.Users.Where(h => h.Id == reservation.PId).First().Email;
+                var id = db.Personal_Info.Where(h => h.Id == reservation.PId).First().Fname;
+                var eid = db.Employee_Info.Where(h => h.Id == reservation.EId).First().Fname; 
+                var subject = "Regarding Appointment Details Booking" + reservation.R_Status;
+                var message = "Hi" + id + " \n This is regarding your appointment with" + eid +
+                              ". Your booking reservation id is " + reservation.R_Id +
+                              "Your current appointment date is" + reservation.R_DateTime + " and status is " +
+                              reservation.R_Status + ".";
+                EmailController email = new EmailController();
+                email.Send(emailId, subject, message);
                 return RedirectToAction("EmpDetail","Health_Info");
             }
             ViewBag.EId = new SelectList(db.Employee_Info, "Id", "Fname", reservation.EId);
             ViewBag.PId = new SelectList(db.Personal_Info, "Id", "Fname", reservation.PId);
+          
             return View(reservation);
         }
 

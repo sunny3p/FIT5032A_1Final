@@ -86,7 +86,7 @@ namespace FIT5032A_1Final.Controllers
             {
                 db.Entry(personal_Info).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Health_Info");
             }
             return View(personal_Info);
         }

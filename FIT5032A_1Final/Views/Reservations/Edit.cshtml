@@ -17,12 +17,28 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.R_Id)
+        
+        @Html.ValidationMessageFor(model => model.R_DateTime, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.R_DateTime)
+        
+        @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Reason)
+        
+        @Html.ValidationMessageFor(model => model.PId, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.PId)
+        
+        @Html.ValidationMessageFor(model => model.EId, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.EId)
 
-        <div class="form-group">
+        
+
+
+        @*<div class="form-group">
             @Html.LabelFor(model => model.R_DateTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.R_DateTime, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.R_DateTime, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.R_DateTime)
             </div>
         </div>
 
@@ -31,6 +47,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Reason)
             </div>
         </div>
 
@@ -39,8 +56,9 @@
             <div class="col-md-10">
                 @Html.DropDownList("PId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PId, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.PId)
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.R_Status, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -50,13 +68,14 @@
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.EId, "EId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("EId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.EId, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.EId)
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -67,7 +86,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "EmpDetail","Health_Info")
 </div>
 
 @section Scripts {

@@ -11,48 +11,64 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Employee_Info.Fname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Personal_Info.Fname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.R_DateTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Reason)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.R_Status)
-        </th>
-        <th></th>
-    </tr>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_Info.Fname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Personal_Info.Fname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.R_DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reason)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.R_Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Employee_Info.Fname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Personal_Info.Fname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.R_DateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Reason)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.R_Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.R_Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.R_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.R_Id })
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee_Info.Fname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Personal_Info.Fname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.R_DateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reason)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.R_Status)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.R_Id })|*@
+                    @Html.ActionLink("Details", "Details", new { id = item.R_Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.R_Id })
+                </td>
+            </tr>
+        }
+    </tbody>
 
 </table>
+
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+@section Scripts{
+    @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+    @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+    <script>
+        $(document).ready(function() {
+            $('.table').DataTable();
+        });
+    </script>
+}

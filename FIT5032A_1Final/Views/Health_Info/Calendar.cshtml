@@ -1,0 +1,70 @@
+﻿@model IEnumerable<FIT5032A_1Final.Models.Reservation>
+
+@{
+    ViewBag.Title = "Calendar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Calendar</h2>
+
+<div id="calendar"></div>
+
+<link href="https://code.jquery.com/ui/1.12.1/themes/hot-sneaks/jquery-ui.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css" rel="stylesheet" media="print" />
+@section Scripts {
+
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+
+    @*<script src="~/Scripts/calendar.js"></script>*@
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    @*<script>
+            $(document).ready(function () {
+                $(function () {
+                    $('#calendar').fullCalendar({
+                        events: [
+                            {
+                                title: 'Hello',
+                                start: '2018-10-16'
+                            }
+                        ]
+                    });
+                })
+            });
+
+        </script>*@
+
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $('#calendar').fullCalendar({
+                    events: function (start, end, timezone, callback) {
+                        $.ajax({
+                            url: '/Health_Info/getReservations',
+                            type: "GET",
+                            datatype: "json",
+                            success: function (result) {
+                                var events = [];
+                                $.each(result, function (i, data) {
+                                    events.push(
+                                        {
+                                            id: 1,
+                                            title: "Sunny",
+                                            start: '2018-10-15'
+
+                                        }
+                                    );
+
+                                });
+                                callback(events);
+                            }
+                        });
+                    },
+                });
+            })
+        })
+    </script>
+
+}

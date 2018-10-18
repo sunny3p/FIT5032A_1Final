@@ -79,15 +79,16 @@ namespace FIT5032A_1Final.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    //if (User.IsInRole("Customer"))
-                    //{
-                        return RedirectToAction("Index","Health_Info");
-                    //}
-                    ////else
-                    //{
-                    //    return RedirectToAction(
-                    //        );
-                    //}
+                    if (User.IsInRole("Admin"))
+                    {
+                        return RedirectToAction("EmpDetail", "Health_Info");
+                       
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Health_Info");
+
+                    }
                 //case SignInStatus.Success:
                 //    return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:

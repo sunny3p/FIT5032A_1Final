@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FIT5032A_1Final.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FIT5032A_1Final.Controllers
 {
@@ -49,8 +50,9 @@ namespace FIT5032A_1Final.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "R_Id,R_DateTime,Reason,PId,R_Status,EId")] Reservation reservation)
+        public ActionResult Create([Bind(Include = "R_Id,R_DateTime,Reason,R_Status,EId")] Reservation reservation)
         {
+            reservation.PId = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
                 db.Reservations.Add(reservation);
@@ -58,6 +60,24 @@ namespace FIT5032A_1Final.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.EId = new SelectList(db.Employee_Info, "Id", "Fname", reservation.EId);
+            ViewBag.PId = new SelectList(db.Personal_Info, "Id", "Fname", reservation.PId);
+            return View(reservation);
+        }
+
+
+        // GET: Reservations/Edit/5
+        public ActionResult DEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Reservation reservation = db.Reservations.Find(id);
+            if (reservation == null)
+            {
+                return HttpNotFound();
+            }
             ViewBag.EId = new SelectList(db.Employee_Info, "Id", "Fname", reservation.EId);
             ViewBag.PId = new SelectList(db.Personal_Info, "Id", "Fname", reservation.PId);
             return View(reservation);
@@ -91,7 +111,7 @@ namespace FIT5032A_1Final.Controllers
             {
                 db.Entry(reservation).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("EmpDetail","Health_Info");
             }
             ViewBag.EId = new SelectList(db.Employee_Info, "Id", "Fname", reservation.EId);
             ViewBag.PId = new SelectList(db.Personal_Info, "Id", "Fname", reservation.PId);
@@ -123,6 +143,8 @@ namespace FIT5032A_1Final.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        
 
         protected override void Dispose(bool disposing)
         {

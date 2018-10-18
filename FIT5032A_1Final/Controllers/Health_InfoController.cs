@@ -18,9 +18,20 @@ namespace FIT5032A_1Final.Controllers
         // GET: Health_Info
         public ActionResult Index()
         {
-            var health_Info = db.Health_Info.Include(h => h.Personal_Info);
-            return View(health_Info.ToList());
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("EmpDetail", "Health_Info");
+            }
+            else
+            {
+                var Id = User.Identity.GetUserId();
+                var health_Info = db.Health_Info.Where(h => h.PId == Id);
+                ViewBag.PId = Id;
+                return View(health_Info.ToList());
+            }
         }
+
+
 
         // GET: Health_Info/Details/5
         public ActionResult Details(int? id)
@@ -42,6 +53,30 @@ namespace FIT5032A_1Final.Controllers
         {
             ViewBag.PId = new SelectList(db.Personal_Info, "Id", "Fname");
             return View();
+        }
+
+        public ActionResult Calendar()
+        {
+            return View();
+        }
+
+        public JsonResult getReservationDetails()
+        {
+            var id = User.Identity.GetUserId();
+            var events = db.Reservations.Where(x => x.EId == id)
+                .Select(x => new { x.R_Id, x.Personal_Info.Fname, x.R_Status, x.R_DateTime }).ToList();
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+
+        // GET: Healths
+        [Authorize(Roles = "Admin")]
+        public ActionResult EmpDetail()
+        {
+            var Id = User.Identity.GetUserId();
+            var detail = db.Reservations.Where(h => h.EId == Id).ToList();
+            ViewBag.EId = Id;
+            return View(detail.ToList());
         }
 
         // POST: Health_Info/Create

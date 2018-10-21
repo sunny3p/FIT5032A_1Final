@@ -25,6 +25,7 @@ namespace FIT5032A_1Final.Models
         [Required]
         public string Mood_Level { get; set; }
 
+       
         //[DataType(DataType.Date)]
         [Column(TypeName = "date")]
         public DateTime Date { get; set; }

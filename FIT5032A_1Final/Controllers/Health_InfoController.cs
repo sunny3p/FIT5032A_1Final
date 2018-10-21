@@ -110,6 +110,8 @@ namespace FIT5032A_1Final.Controllers
             {
                 return HttpNotFound();
             }
+            
+            
             ViewBag.PId = new SelectList(db.Personal_Info, "Id", "Fname", health_Info.PId);
             return View(health_Info);
         }

@@ -43,9 +43,10 @@
                 $('#calendar').fullCalendar({
                     header: {
                         left: "month,agendaWeek,agendaDay",
-                        center: "title",
+                        center: "title"
                        
                     },
+                    themeSystem: "jquery-ui",
                     events: function(start, end, timezone, callback) {
                         $.ajax({
                             url: '/Health_Info/getReservationDetails',
@@ -63,7 +64,7 @@
                                                 start: moment(data.R_DateTime).format("YYYY-MM-DD HH:mm"),
                                                 end: moment(data.R_DateTime).add(60, 'minutes')
                                                     .format("YYYY-MM-DD HH:mm"),
-                                                allDay: false,
+                                                allDay: false
                                                 
 
                                             }

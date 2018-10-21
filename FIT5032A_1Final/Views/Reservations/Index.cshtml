@@ -1,4 +1,5 @@
-﻿@model IEnumerable<FIT5032A_1Final.Models.Reservation>
+﻿@using FIT5032A_1Final.Models
+@model IEnumerable<FIT5032A_1Final.Models.Reservation>
 
 @{
     ViewBag.Title = "Index";
@@ -8,7 +9,8 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create")|
+    @Html.ActionLink("Show Calendar", "PersonalCalendar", "Health_Info")
 </p>
 <table class="table">
     <thead>

@@ -4,7 +4,9 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@* To show map view we have used week 5B tutorial and mapbox documentation code to show user location and their stored placed of interests.
+    https://www.mapbox.com/help/tutorials/
+    *@
 <h2>Index</h2>
 <script src='https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
@@ -148,45 +150,3 @@
 }
 
 
-@*<script src='https:\//unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js'></script>
-    <script src="https:\//unpkg.com/@Html.Raw("@")mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
-
-    <script>
-        mapboxgl.accessToken = 'pk.eyJ1Ijoic3VubnkzcCIsImEiOiJjamwxeXBucHkxa3JqM3FxcHEzY29mNzFsIn0.GeM-jgZ1ZwxCdmEtD5vJOA';
-
-        // eslint-disable-next-line no-undef
-        var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
-
-        var map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v10',
-            center: [145.031588, -37.889921],
-            zoom: 12
-        });
-
-        map.addControl(new mapboxgl.GeolocateControl({
-            positionOptions: {
-                enableHighAccuracy: true
-            },
-            trackUserLocation: true
-        }));
-
-    </script>
-
-    @foreach (var place in Model)
-    {
-        <script>
-            mapboxClient.geocoding.forwardGeocode({
-                query: '@place.Address',
-                autocomplete: false,
-                limit: 1
-            }).send().then(function (response) {
-                if (response && response.body && response.body.features && response.body.features.length) {
-                    var feature = response.body.features[0];
-                    new mapboxgl.Marker()
-                        .setLngLat(feature.center)
-                        .addTo(map);
-                }
-            });
-        </script>
-    }*@

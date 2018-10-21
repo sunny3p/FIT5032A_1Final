@@ -9,10 +9,10 @@
 @* The below 4 videos have been followed exactly to display calendar events
     https://www.youtube.com/channel/UC21p56A_UhVEkXf2ymo9dog/videos
     https://fullcalendar.io/releases/fullcalendar/3.9.0/demos/background-events.html
-    The below calendar is used to show all appointments of Employees  which has been booked to them and the appointment can be edited by clicking on the events. 
+    The below calendar is used to show all appointments of User  which has been booked by them and the appointment can be viewed in detail by clicking on the events.
 *@
 
-<p>@Html.ActionLink("Show Table", "EmpDetail", "Health_Info")</p>
+<p>@Html.ActionLink("Show Table", "Index", "Reservations")</p>
 <div id="calendar"></div>
 
 <link href="https://code.jquery.com/ui/1.12.1/themes/hot-sneaks/jquery-ui.css" rel="stylesheet" />
@@ -40,7 +40,7 @@
                     themeSystem: "jquery-ui",
                     events: function (start, end, timezone, callback) {
                         $.ajax({
-                            url: '/Health_Info/getReservationDetails',
+                            url: '/Health_Info/getPReservationDetails',
                             type: "GET",
                             datatype: "json",
                             success: function (result) {
@@ -68,7 +68,7 @@
                     },
                     selectable: true,
                     eventClick: function (calEvent, jsEvent, view) {
-                        window.location.href = '/Reservations/Edit?id=' + calEvent.id;
+                        window.location.href = '/Reservations/Details?id=' + calEvent.id;
                     }
                 });
             })

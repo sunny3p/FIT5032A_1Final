@@ -20,7 +20,9 @@ namespace FIT5032A_1Final.Controllers
         public ActionResult Index()
         {
             var locations = db.Locations.Include(l => l.Personal_Info);
+            
             ViewBag.Location = locations;
+            
             return View(locations.ToList());
         }
 

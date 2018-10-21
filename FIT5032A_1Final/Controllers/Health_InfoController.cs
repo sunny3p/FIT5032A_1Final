@@ -62,6 +62,19 @@ namespace FIT5032A_1Final.Controllers
             return View();
         }
 
+        public ActionResult PersonalCalendar()
+        {
+            return View();
+        }
+
+        public JsonResult getPReservationDetails()
+        {
+            var id1 = User.Identity.GetUserId();
+            var event1 = db.Reservations.Where(x => x.PId == id1)
+                .Select(x => new { x.R_Id, x.Employee_Info.Fname, x.R_Status, x.R_DateTime }).ToList();
+            return new JsonResult { Data = event1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
         public JsonResult getReservationDetails()
         {
             var id = User.Identity.GetUserId();

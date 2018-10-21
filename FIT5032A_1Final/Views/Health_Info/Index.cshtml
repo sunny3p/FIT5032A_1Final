@@ -10,9 +10,11 @@
 
 
 <p>
-    @Html.ActionLink("Update Profile", "Edit","Personal_Info",new {id = ViewBag.PId},null)|
+    @Html.ActionLink("Update Profile", "Edit", "Personal_Info", new { id = ViewBag.PId }, null)|
     @Html.ActionLink("Location", "Index", "Locations")|
     @Html.ActionLink("Create Reservation", "Create", "Reservations")|
+    @Html.ActionLink("Show Reservation Calendar", "PersonalCalendar", "Health_Info")|
+    @Html.ActionLink("Show Reservation ", "Index", "Reservations")
 
 </p>
 <p>

@@ -20,7 +20,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Alchol_Consumption, "Alcohol Consumption", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Alchol_Consumption, new SelectList(new[] { "Happy", "Sad", "Neutral" }), new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.Alchol_Consumption, new SelectList(new[] { "No Consumption", "Less Consumption", "Medium Consumption", "High Consumption" }), new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Alchol_Consumption, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Smoking, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Smoking, new SelectList(new[] { "Happy", "Sad", "Neutral" }), new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.Smoking, new SelectList(new[] { "No", "Less", "Medium","High" }), new { @class = "form-control" } )
                 @Html.ValidationMessageFor(model => model.Smoking, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -52,7 +52,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Mood_Level, "Mood Level", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Mood_Level, new SelectList(new[] { "Happy", "Sad", "Neutral" }), new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.Mood_Level, new SelectList(new[] { "Happy", "Sad", "Angry","Excited","Depressed","None" }), new { @class = "form-control" } )
                 @Html.ValidationMessageFor(model => model.Mood_Level, "", new { @class = "text-danger" })
             </div>
         </div>

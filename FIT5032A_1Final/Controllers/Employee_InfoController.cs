@@ -15,12 +15,14 @@ namespace FIT5032A_1Final.Controllers
     {
         private FIT5032_A1Final db = new FIT5032_A1Final();
 
+        [Authorize]
         // GET: Employee_Info
         public ActionResult Index()
         {
             return View(db.Employee_Info.ToList());
         }
 
+        [Authorize]
         // GET: Employee_Info/Details/5
         public ActionResult Details(string id)
         {
@@ -36,6 +38,7 @@ namespace FIT5032A_1Final.Controllers
             return View(employee_Info);
         }
 
+        [Authorize]
         // GET: Employee_Info/Create
         public ActionResult Create()
         {
@@ -60,6 +63,7 @@ namespace FIT5032A_1Final.Controllers
             return View(employee_Info);
         }
 
+        [Authorize]
         // GET: Employee_Info/Edit/5
         public ActionResult Edit(string id)
         {
@@ -91,6 +95,7 @@ namespace FIT5032A_1Final.Controllers
             return View(employee_Info);
         }
 
+        [Authorize]
         // GET: Employee_Info/Delete/5
         public ActionResult Delete(string id)
         {

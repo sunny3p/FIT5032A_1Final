@@ -16,9 +16,11 @@ namespace FIT5032A_1Final.Models
 
         public string Id { get; set; }
 
+        [RegularExpression(@"^[A-Za-z]+$", ErrorMessage = "Please enter a valid First name Spaces and Numbers are not allowed")]
         [Required]
         public string Fname { get; set; }
 
+        [RegularExpression(@"^[A-Za-z]+$", ErrorMessage = "Please enter a valid First name Spaces and Numbers are not allowed")]
         public string Lname { get; set; }
 
         [Required]
@@ -30,6 +32,7 @@ namespace FIT5032A_1Final.Models
         [Required]
         public string Gender { get; set; }
 
+        [RegularExpression(@"^(\+\d{1,3}[- ]?)?\d{10}$", ErrorMessage = "Please enter a valid Phone no")]
         [Required]
         [StringLength(15)]
         public string Contact_No { get; set; }

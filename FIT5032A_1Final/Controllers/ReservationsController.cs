@@ -15,6 +15,7 @@ namespace FIT5032A_1Final.Controllers
     {
         private FIT5032_A1Final db = new FIT5032_A1Final();
 
+        [Authorize]
         // GET: Reservations
         public ActionResult Index()
         {
@@ -24,6 +25,7 @@ namespace FIT5032A_1Final.Controllers
             return View(reservations.ToList());
         }
 
+        [Authorize]
         // GET: Reservations/Details/5
         public ActionResult Details(int? id)
         {
@@ -40,6 +42,7 @@ namespace FIT5032A_1Final.Controllers
             return View(reservation);
         }
 
+        [Authorize]
         // GET: Reservations/Create
         public ActionResult Create()
         {
@@ -98,7 +101,7 @@ namespace FIT5032A_1Final.Controllers
 
                 }
                 
-            ViewBag.EId = new SelectList(db.Employee_Info, "Id", "Fname", reservation.EId);
+                ViewBag.EId = new SelectList(db.Employee_Info, "Id", "Fname", reservation.EId);
                 ViewBag.PId = new SelectList(db.Personal_Info, "Id", "Fname", reservation.PId);
                 return View(reservation);
             
@@ -106,7 +109,7 @@ namespace FIT5032A_1Final.Controllers
 
 
     
-
+        [Authorize(Roles = "Admin")]
         // GET: Reservations/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -135,29 +138,50 @@ namespace FIT5032A_1Final.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "R_Id,R_DateTime,Reason,PId,R_Status,EId")] Reservation reservation)
         {
-            ApplicationDbContext dbContext = new ApplicationDbContext();
-            if (ModelState.IsValid)
+            var UserDateTime = db.Reservations.Where(d => d.PId == reservation.PId & d.R_DateTime == reservation.R_DateTime).ToList();
+
+            var AdminDateTime = db.Reservations.Where(d => d.EId == reservation.EId & d.R_DateTime == reservation.R_DateTime).ToList();
+
+            if (UserDateTime.Count >= 1)
             {
-                db.Entry(reservation).State = EntityState.Modified;
-                db.SaveChanges();
-                var emailId = dbContext.Users.Where(h => h.Id == reservation.PId).First().Email;
-                var id = db.Personal_Info.Where(h => h.Id == reservation.PId).First().Fname;
-                var eid = db.Employee_Info.Where(h => h.Id == reservation.EId).First().Fname; 
-                var subject = "Regarding Appointment Details Booking" + reservation.R_Status;
-                var message = "Hi" + id + " \n This is regarding your appointment with" + eid +
-                              ". Your booking reservation id is " + reservation.R_Id +
-                              "Your current appointment date is" + reservation.R_DateTime + " and status is " +
-                              reservation.R_Status + ".";
-                EmailController email = new EmailController();
-                email.Send(emailId, subject, message);
-                return RedirectToAction("EmpDetail","Health_Info");
+                ModelState.AddModelError(string.Empty, "Sorry We couldn't allocate to this booking time. Please check other slots");
+            }
+            else
+            {
+                if (AdminDateTime.Count >= 1)
+                {
+                    ModelState.AddModelError(string.Empty, "Sorry We couldn't allocate to this booking time. Please check other slots");
+                }
+                else
+                {
+                    ApplicationDbContext dbContext = new ApplicationDbContext();
+                    reservation.PId = User.Identity.GetUserId();
+                    reservation.R_Status = "Pending";
+
+                    db.Reservations.Add(reservation);
+                    db.SaveChanges();
+                    var emailId = dbContext.Users.Where(h => h.Id == reservation.PId).First().Email;
+                    var id = db.Personal_Info.Where(h => h.Id == reservation.PId).First().Fname;
+                    var eid = db.Employee_Info.Where(h => h.Id == reservation.EId).First().Fname;
+                    var subject = "Regarding Appointment Details Booking " + reservation.R_Status + "ation";
+                    var message = "Hi " + id + " \n This is regarding your appointment with " + eid +
+                                  ". Your booking reservation id is " + reservation.R_Id +
+                                  " Your current appointment date is" + reservation.R_DateTime +
+                                  " and  your current status is " +
+                                  reservation.R_Status + ".";
+                    EmailController email = new EmailController();
+                    email.Send(emailId, subject, message);
+
+                    return RedirectToAction("EmpDetail", "Health_Info");
+                }
+
             }
             ViewBag.EId = new SelectList(db.Employee_Info, "Id", "Fname", reservation.EId);
             ViewBag.PId = new SelectList(db.Personal_Info, "Id", "Fname", reservation.PId);
-          
             return View(reservation);
         }
 
+        [Authorize]
         // GET: Reservations/Delete/5
         public ActionResult Delete(int? id)
         {

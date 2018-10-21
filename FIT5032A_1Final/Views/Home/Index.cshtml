@@ -1,33 +1,94 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+    .mySlides {display:none}
+    .w3-left, .w3-right, .w3-badge {cursor:pointer}
+    .w3-badge {height:13px;width:13px;padding:0}
+</style>
+<div class="w3-content w3-display-container" style="max-width:800px">
+    <img class="img-responsive mySlides" src="~/Content/Images/pexels-photo-935869.jpeg" style="width:100%"/>
+    <img class="img-responsive mySlides" src="~/Content/Images/pexels-photo-179912.jpeg" style="width:100%"/>
+    <img class="img-responsive mySlides" src="~/Content/Images/pexels-photo-260447.jpeg" style="width:100%"/>
+    <img src="~/Content/Images/pexels-photo-345415.jpeg" class="img-responsive mySlides" style="width:100%"/>
+    <img src="~/Content/Images/pexels-photo-1161682.jpeg" class="img-responsive mySlides" style="width:100%"/>
+
+    <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
+        <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
+        <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
+        <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
+        <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
+        <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
+        <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(4)"></span>
+        <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(5)"></span>
+    </div>
+</div>
 
 
-<img src="~/Content/Images/pexels-photo-935869.jpeg"  class="img-responsive" />
-@*<div class="jumbotron">
-    <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>*@
 
-@*<div class="row">
-        <div class="col-md-4">
-            <h2>Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </div>
-    </div>*@
+<div class="jumbotron">
+        <h1>OnTrackHealth</h1>
+    <p class="lead">
+
+        “
+
+        Physical fitness is not only one of the most important keys to a healthy body, it is the basis of dynamic and creative intellectual activity.
+    </p>
+    <p>
+                                                                                                                                                -John F. Kennedy
+    </p>
+            <p><a href="http://www.wiseoldsayings.com/fitness-quotes/" class="btn btn-primary btn-lg">Check More Quotes &raquo;</a></p>
+    </div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Whats is Physical Health</h2>
+        <p>
+            Physical fitness is a state of health and well-being and, more specifically,
+            the ability to perform aspects of sports, occupations and daily activities.
+            Physical fitness is generally achieved through proper nutrition, moderate-vigorous
+            physical exercise, and sufficient rest.
+            Before the industrial revolution, fitness was defined as the capacity to carry out
+            the day’s activities without undue fatigue. However, with automation and changes in lifestyles
+            physical fitness is now considered a measure of the body's ability to function efficiently and
+            effectively in work and leisure activities, to be healthy, to resist hypokinetic diseases, and to meet emergency situations.
+        </p>
+        <p><a class="btn btn-default" href="https://en.wikipedia.org/wiki/Physical_fitness">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>How To Eat Healthy</h2>
+        <p>
+            Healthy eating is a pattern. It's about how you eat over days, weeks and even months.
+            The simple steps in this guide show you how to eat a diet that's naturally low in salt, sugar and saturated and trans fats.
+        </p>
+        <p><a class="btn btn-default" href="https://www.heartfoundation.org.au/healthy-eating/food-and-nutrition">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>BMI Calculator</h2>
+        <p>
+            BMI is a useful measurement for most people over 18 years old. But it is only an estimate and it doesn’t take into account age, ethnicity, gender and body composition.
+            We recommend you also check your waist measurement and other risk factors.
+            Speak to your doctor, an Accredited Practising Dietitian or a health practitioner about your weight.
+            This calculator shouldn’t be used for pregnant women or children.
+        </p>
+        <p><a class="btn btn-default" href="https://www.heartfoundation.org.au/your-heart/know-your-risks/healthy-weight/bmi-calculator">Learn more &raquo;</a></p>
+    </div>
+</div>
+<script>
+    var myIndex = 0;
+    carousel();
+
+    function carousel() {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";  
+        }
+        myIndex++;
+        if (myIndex > x.length) {myIndex = 1}    
+        x[myIndex-1].style.display = "block";  
+        setTimeout(carousel, 2000); // Change image every 2 seconds
+    }
+</script>

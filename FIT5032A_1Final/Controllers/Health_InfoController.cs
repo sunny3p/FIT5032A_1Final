@@ -14,7 +14,7 @@ namespace FIT5032A_1Final.Controllers
     public class Health_InfoController : Controller
     {
         private FIT5032_A1Final db = new FIT5032_A1Final();
-
+        [Authorize]
         // GET: Health_Info
         public ActionResult Index()
         {
@@ -32,7 +32,7 @@ namespace FIT5032A_1Final.Controllers
         }
 
 
-
+        [Authorize]
         // GET: Health_Info/Details/5
         public ActionResult Details(int? id)
         {
@@ -48,6 +48,7 @@ namespace FIT5032A_1Final.Controllers
             return View(health_Info);
         }
 
+        [Authorize]
         // GET: Health_Info/Create
         public ActionResult Create()
         {
@@ -55,6 +56,7 @@ namespace FIT5032A_1Final.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Calendar()
         {
             return View();
@@ -98,6 +100,7 @@ namespace FIT5032A_1Final.Controllers
             return View(health_Info);
         }
 
+        [Authorize]
         // GET: Health_Info/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -110,8 +113,8 @@ namespace FIT5032A_1Final.Controllers
             {
                 return HttpNotFound();
             }
-            
-            
+
+            ViewBag.Date = health_Info.Date.ToShortDateString();
             ViewBag.PId = new SelectList(db.Personal_Info, "Id", "Fname", health_Info.PId);
             return View(health_Info);
         }
@@ -121,18 +124,23 @@ namespace FIT5032A_1Final.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Alchol_Consumption,Smoking,Height,Weight,Mood_Level,Date,PId")] Health_Info health_Info)
+        public ActionResult Edit([Bind(Include = "Id,Alchol_Consumption,Smoking,Height,Weight,Mood_Level,Date")] Health_Info health_Info)
         {
+            health_Info.PId = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
                 db.Entry(health_Info).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+
             }
+
+            
             ViewBag.PId = new SelectList(db.Personal_Info, "Id", "Fname", health_Info.PId);
             return View(health_Info);
         }
 
+        [Authorize]
         // GET: Health_Info/Delete/5
         public ActionResult Delete(int? id)
         {

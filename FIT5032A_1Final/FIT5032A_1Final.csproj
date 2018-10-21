@@ -395,6 +395,10 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\Images\pexels-photo-1161682.jpeg" />
+    <Content Include="Content\Images\pexels-photo-179912.jpeg" />
+    <Content Include="Content\Images\pexels-photo-260447.jpeg" />
+    <Content Include="Content\Images\pexels-photo-345415.jpeg" />
     <Content Include="Content\Images\pexels-photo-935869.jpeg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />

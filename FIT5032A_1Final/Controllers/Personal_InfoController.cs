@@ -14,13 +14,13 @@ namespace FIT5032A_1Final.Controllers
     public class Personal_InfoController : Controller
     {
         private FIT5032_A1Final db = new FIT5032_A1Final();
-
+        [Authorize]
         // GET: Personal_Info
         public ActionResult Index()
         {
             return View(db.Personal_Info.ToList());
         }
-
+        [Authorize]
         // GET: Personal_Info/Details/5
         public ActionResult Details(string id)
         {
@@ -36,6 +36,7 @@ namespace FIT5032A_1Final.Controllers
             return View(personal_Info);
         }
 
+        [Authorize]
         // GET: Personal_Info/Create
         public ActionResult Create()
         {
@@ -60,6 +61,7 @@ namespace FIT5032A_1Final.Controllers
             return View(personal_Info);
         }
 
+        [Authorize]
         // GET: Personal_Info/Edit/5
         public ActionResult Edit(string id)
         {
@@ -91,6 +93,7 @@ namespace FIT5032A_1Final.Controllers
             return View(personal_Info);
         }
 
+        [Authorize]
         // GET: Personal_Info/Delete/5
         public ActionResult Delete(string id)
         {

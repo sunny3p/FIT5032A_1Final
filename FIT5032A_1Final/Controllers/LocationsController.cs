@@ -15,6 +15,7 @@ namespace FIT5032A_1Final.Controllers
     {
         private FIT5032_A1Final db = new FIT5032_A1Final();
 
+        [Authorize]
         // GET: Locations
         public ActionResult Index()
         {
@@ -23,6 +24,7 @@ namespace FIT5032A_1Final.Controllers
             return View(locations.ToList());
         }
 
+        [Authorize]
         // GET: Locations/Details/5
         public ActionResult Details(int? id)
         {
@@ -38,6 +40,7 @@ namespace FIT5032A_1Final.Controllers
             return View(location);
         }
 
+        [Authorize]
         // GET: Locations/Create
         public ActionResult Create()
         {
@@ -64,6 +67,7 @@ namespace FIT5032A_1Final.Controllers
             return View(location);
         }
 
+        [Authorize]
         // GET: Locations/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -97,6 +101,7 @@ namespace FIT5032A_1Final.Controllers
             return View(location);
         }
 
+        [Authorize]
         // GET: Locations/Delete/5
         public ActionResult Delete(int? id)
         {

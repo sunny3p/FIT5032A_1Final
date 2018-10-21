@@ -11,9 +11,11 @@ namespace FIT5032A_1Final.Models
     {
         public int Id { get; set; }
 
+        [RegularExpression(@"^[A-Za-z]+$", ErrorMessage = "Please enter a valid Location name Spaces and Numbers are not allowed")]
         [Required]
         public string Loc_Name { get; set; }
 
+        
         [Required]
         public string Description { get; set; }
 
